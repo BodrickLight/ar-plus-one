@@ -7,7 +7,9 @@
     "start-pwa": "ng build && http-server -p 8080 -c-1 dist/ar-plus-one",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "predeploy": "ng build --base-href=/ar-plus-one/",
+    "deploy": "npx gh-pages -d dist/ar-plus-one/"
   },
   "private": true,
   "dependencies": {
@@ -29,6 +31,7 @@
     "@angular/cli": "~14.0.3",
     "@angular/compiler-cli": "^14.0.0",
     "@types/jasmine": "~4.0.0",
+    "gh-pages": "^4.0.0",
     "http-server": "^14.1.1",
     "jasmine-core": "~4.1.0",
     "karma": "~6.3.0",
