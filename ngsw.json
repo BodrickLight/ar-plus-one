@@ -1,0 +1,81 @@
+{
+  "configVersion": 1,
+  "timestamp": 1656075721499,
+  "index": "/ar-plus-one/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/ar-plus-one/favicon.ico",
+        "/ar-plus-one/index.html",
+        "/ar-plus-one/main.5bc02d27bb9dca9d.js",
+        "/ar-plus-one/manifest.webmanifest",
+        "/ar-plus-one/polyfills.d1c2b5dbf64e7f71.js",
+        "/ar-plus-one/runtime.bfe5fc2312167808.js",
+        "/ar-plus-one/styles.ef46db3751d8e999.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/ar-plus-one/assets/icons/icon-128x128.png",
+        "/ar-plus-one/assets/icons/icon-144x144.png",
+        "/ar-plus-one/assets/icons/icon-152x152.png",
+        "/ar-plus-one/assets/icons/icon-192x192.png",
+        "/ar-plus-one/assets/icons/icon-384x384.png",
+        "/ar-plus-one/assets/icons/icon-512x512.png",
+        "/ar-plus-one/assets/icons/icon-72x72.png",
+        "/ar-plus-one/assets/icons/icon-96x96.png"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/ar-plus-one/assets/icons/icon-128x128.png": "dae3b6ed49bdaf4327b92531d4b5b4a5d30c7532",
+    "/ar-plus-one/assets/icons/icon-144x144.png": "b0bd89982e08f9bd2b642928f5391915b74799a7",
+    "/ar-plus-one/assets/icons/icon-152x152.png": "7479a9477815dfd9668d60f8b3b2fba709b91310",
+    "/ar-plus-one/assets/icons/icon-192x192.png": "1abd80d431a237a853ce38147d8c63752f10933b",
+    "/ar-plus-one/assets/icons/icon-384x384.png": "329749cd6393768d3131ed6304c136b1ca05f2fd",
+    "/ar-plus-one/assets/icons/icon-512x512.png": "559d9c4318b45a1f2b10596bbb4c960fe521dbcc",
+    "/ar-plus-one/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
+    "/ar-plus-one/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
+    "/ar-plus-one/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
+    "/ar-plus-one/index.html": "2d8a8a402b980129fe59ee7ad94f23fb73686ef8",
+    "/ar-plus-one/main.5bc02d27bb9dca9d.js": "3da2fe7df6a0637fb945f2c3aba53cc0d775119e",
+    "/ar-plus-one/manifest.webmanifest": "2ceaeacfc5d289eeb89bdb95dd58aab649065db2",
+    "/ar-plus-one/polyfills.d1c2b5dbf64e7f71.js": "1ec192294e988fb1f91328c8d9d0e09757ba72df",
+    "/ar-plus-one/runtime.bfe5fc2312167808.js": "edaf0494792fc3b24f396c4c9b6727789ac3de62",
+    "/ar-plus-one/styles.ef46db3751d8e999.css": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}
