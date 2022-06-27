@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1656322259161,
+  "timestamp": 1656323668621,
   "index": "/ar-plus-one/index.html",
   "assetGroups": [
     {
@@ -13,7 +13,7 @@
       "urls": [
         "/ar-plus-one/favicon.ico",
         "/ar-plus-one/index.html",
-        "/ar-plus-one/main.10d9e9dc36d375fc.js",
+        "/ar-plus-one/main.18c3ef004fa30a57.js",
         "/ar-plus-one/manifest.webmanifest",
         "/ar-plus-one/polyfills.d1c2b5dbf64e7f71.js",
         "/ar-plus-one/runtime.bfe5fc2312167808.js",
@@ -52,8 +52,8 @@
     "/ar-plus-one/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
     "/ar-plus-one/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
     "/ar-plus-one/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "/ar-plus-one/index.html": "ddaa9c83e26a8e50fdc01aeac7f364547ce532b2",
-    "/ar-plus-one/main.10d9e9dc36d375fc.js": "c6132c7d40fee571f1c95125ce14b306da1fe796",
+    "/ar-plus-one/index.html": "b9ed099cbef17a20da67de112fc5d92547ef8a1d",
+    "/ar-plus-one/main.18c3ef004fa30a57.js": "75ccf5be8368089e1c3f547f9f7705ba584d383f",
     "/ar-plus-one/manifest.webmanifest": "2ceaeacfc5d289eeb89bdb95dd58aab649065db2",
     "/ar-plus-one/polyfills.d1c2b5dbf64e7f71.js": "1ec192294e988fb1f91328c8d9d0e09757ba72df",
     "/ar-plus-one/runtime.bfe5fc2312167808.js": "edaf0494792fc3b24f396c4c9b6727789ac3de62",
