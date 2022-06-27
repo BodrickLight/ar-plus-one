@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1656320299104,
+  "timestamp": 1656322259161,
   "index": "/ar-plus-one/index.html",
   "assetGroups": [
     {
@@ -13,10 +13,10 @@
       "urls": [
         "/ar-plus-one/favicon.ico",
         "/ar-plus-one/index.html",
-        "/ar-plus-one/main.e7fb1dc2f87518bc.js",
+        "/ar-plus-one/main.10d9e9dc36d375fc.js",
         "/ar-plus-one/manifest.webmanifest",
         "/ar-plus-one/polyfills.d1c2b5dbf64e7f71.js",
-        "/ar-plus-one/runtime.0f880f8a0700855c.js",
+        "/ar-plus-one/runtime.bfe5fc2312167808.js",
         "/ar-plus-one/styles.ef46db3751d8e999.css"
       ],
       "patterns": []
@@ -52,11 +52,11 @@
     "/ar-plus-one/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
     "/ar-plus-one/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
     "/ar-plus-one/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "/ar-plus-one/index.html": "54dee65c790462c33339758fa08d142ff80fc5cc",
-    "/ar-plus-one/main.e7fb1dc2f87518bc.js": "efcc0f76004a971655934d9089cd78c7bc1683e0",
+    "/ar-plus-one/index.html": "ddaa9c83e26a8e50fdc01aeac7f364547ce532b2",
+    "/ar-plus-one/main.10d9e9dc36d375fc.js": "c6132c7d40fee571f1c95125ce14b306da1fe796",
     "/ar-plus-one/manifest.webmanifest": "2ceaeacfc5d289eeb89bdb95dd58aab649065db2",
     "/ar-plus-one/polyfills.d1c2b5dbf64e7f71.js": "1ec192294e988fb1f91328c8d9d0e09757ba72df",
-    "/ar-plus-one/runtime.0f880f8a0700855c.js": "54c863f7be3bc72198d284421433c8795357411b",
+    "/ar-plus-one/runtime.bfe5fc2312167808.js": "edaf0494792fc3b24f396c4c9b6727789ac3de62",
     "/ar-plus-one/styles.ef46db3751d8e999.css": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
   },
   "navigationUrls": [
