@@ -11,14 +11,67 @@
   <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
   <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
   <script>
+    AFRAME.registerComponent('moving-poi', {
+      init: function() {
+        this.directionVec = new THREE.Vector3();
+      },
+      schema: {
+        x: {
+          type: 'number'
+        },
+        y: {
+          type: 'number',
+        },
+        z: {
+          type: 'number',
+        },
+        xSpeed: {
+          type: 'number',
+        },
+        ySpeed: {
+          type: 'number',
+        },
+        zSpeed: {
+          type: 'number',
+        }
+      },
+      update: function() {
+        this.el.setAttribute('position', {
+            x: this.data.x,
+            y: this.data.y,
+            z: this.data.z
+        });
+        this.directionVec.set(this.data.xSpeed, this.data.ySpeed, this.data.zSpeed);
+      },
+      tick: function(time, timeDelta) {
+        if (!this.t0) {
+          this.t0 = time;
+        }
+        var dt = (time - this.t0) / 1000;
+        var velocity = this.directionVec;
+
+        this.el.setAttribute('position', {
+            x: this.data.x + velocity.x * dt,
+            y: this.data.y + velocity.y * dt,
+            z: this.data.z + velocity.z * dt
+        });
+      }
+    })
+  </script>
+
+  <script>
     function loadPlaces(position) {
+      //return [["4009db","BAW5LI  ","United Kingdom",1656342904,1656342908,-0.4942,51.4648,403.86,false,76.65,269.62,13.98,null,472.44,null,false,0],["40431b","GBZBS   ","United Kingdom",1656342428,1656342617,-1.1648,51.4847,693.42,false,53.15,94.44,0,null,769.62,"3601",false,0],["7105ad","SVA115  ","Saudi Arabia",1656342891,1656342891,-0.446,51.4675,null,true,1.8,90,null,null,null,"2771",false,0],["4063de","BAW704W ","United Kingdom",1656342908,1656342908,-0.4599,51.3766,1356.36,false,142.96,135.44,7.15,null,1447.8,"3403",false,0],["4ca640","EIN168E ","Ireland",1656342908,1656342908,-0.4164,51.4777,68.58,false,67.39,270,-3.25,null,152.4,"6322",false,0],["486484","KLM1018 ","Kingdom of the Netherlands",1656342908,1656342908,-0.577,51.4866,1249.68,false,109.55,298.01,11.38,null,1318.26,"6252",false,0],["40762b","WUK10CU ","United Kingdom",1656342783,1656342783,-0.6136,51.4459,8823.96,false,194.04,261.46,0,null,8945.88,"7541",false,0],["406fdb","EZY18AF ","United Kingdom",1656342783,1656342783,-0.7955,51.4532,7719.06,false,183.56,264.21,-6.18,null,7848.6,"3122",false,0],["a9c151","AAL81   ","United States",1656342908,1656342908,-1.0725,51.5138,3619.5,false,151.87,286.53,13.33,null,3680.46,"7744",false,0],["400b8f","GBJHB   ","United Kingdom",1656342908,1656342908,-0.8925,51.6104,441.96,false,82.04,56.51,-2.28,null,518.16,"7000",false,0],["3949ee","AFR378  ","France",1656342908,1656342908,-0.4986,51.4289,10972.8,false,232.14,300.2,0,null,11163.3,"5606",false,0],["4cac55","RYR6SN  ","Ireland",1656342783,1656342783,-0.5402,51.4596,5486.4,false,180.81,44.19,0,null,5562.6,"2360",false,0],["406a6b","GEEKK   ","United Kingdom",1656342781,1656342781,-0.8681,51.6032,449.58,false,46.71,343.36,0,null,495.3,null,false,0],["407d9a","GCMFF   ","United Kingdom",1656342908,1656342908,-0.8515,51.3031,312.42,false,51.59,73.19,-0.33,null,381,"1124",false,0],["4caa57","RYR3LJ  ","Ireland",1656342908,1656342908,-0.3948,51.5881,7810.5,false,181.54,16.12,-5.2,null,7901.94,"5320",false,0]];
+      
     // Foursquare API (limit param: number of maximum places to fetch)
     const endpoint = `https://opensky-network.org/api/states/all
-?lamax=${position.latitude + 0.5}
-&lamin=${position.latitude - 0.5}
-&lomax=${position.longitude + 1}
-&lomin=${position.longitude - 1}`;
-    return fetch(endpoint)
+?lamax=${position.latitude + 0.2}
+&lamin=${position.latitude - 0.2}
+&lomax=${position.longitude + 0.4}
+&lomin=${position.longitude - 0.4}`;
+    return fetch(endpoint, {
+      timeout: 5000
+    })
         .then((res) => {
             return res.json()
                 .then((resp) => {
@@ -28,11 +81,16 @@
         .catch((err) => {
             console.error('Error with opensky API', err);
         })
+        
 };
 
 
 window.onload = () => {
+  reloadData();
+}
+function reloadData() {
     const scene = document.querySelector('a-scene');
+    const gps = document.querySelector("a-camera").components['gps-projected-camera'];
 
     // first get current user location
     return navigator.geolocation.getCurrentPosition(function (position) {
@@ -40,22 +98,53 @@ window.onload = () => {
         // than use it to load from remote APIs some places nearby
         loadPlaces(position.coords)
             .then((places) => {
+                const elements = scene.querySelectorAll('a-link');
+                for (let e of elements) {
+                  scene.removeChild(e);
+                }
                 places.forEach((place) => {
-                    const latitude = place[6];
-                    const longitude = place[7];
+                  const time = place[3];
+                  if (!time) {
+                    return;
+                  }
 
-                    // add place name
-                    const placeText = document.createElement('a-link');
-                    placeText.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude};`);
-                    placeText.setAttribute('title', place[1]);
-                    placeText.setAttribute('scale', '15 15 15');
-                    
-                    placeText.addEventListener('loaded', () => {
+                  const initialOffset = new Date().getTime() / 1000 - time;
+                  const id = place[0];
+                    const latitude = place[6];
+                    const longitude = place[5];
+                    const velocity = place[9];
+                    const heading = place[10] - 90;// + 180; //place[10];
+
+                    const worldPosition = gps.latLonToWorld(latitude, longitude);
+                    const x0 = worldPosition[0];
+                    const y0 = place[7];
+                    const z0 = worldPosition[1];
+
+                    if (y0 < 1000) {
+                      return;
+                    }
+
+                    const xSpeed = velocity * Math.cos(heading * Math.PI / 180);
+                    const ySpeed = place[11];
+                    const zSpeed = velocity * Math.sin(heading * Math.PI / 180);
+
+                    const x = x0 + xSpeed * initialOffset;
+                    const y = y0 + ySpeed * initialOffset;
+                    const z = z0 + zSpeed * initialOffset;
+
+                    element = document.createElement('a-link');
+                    element.setAttribute('moving-poi', `x: ${x}; y: ${y}; z: ${z}; xSpeed: ${xSpeed}; ySpeed: ${ySpeed}; zSpeed: ${zSpeed};`);
+                    element.setAttribute('title', place[1]);
+                    element.setAttribute('scale', '150 150 150');
+                    element.setAttribute('id', id);
+                    element.setAttribute('look-at', '[gps-projected-camera]');
+                    element.addEventListener('loaded', () => {
                         window.dispatchEvent(new CustomEvent('gps-entity-place-loaded'))
                     });
 
-                    scene.appendChild(placeText);
-                });
+                    scene.appendChild(element);
+                  });
+                window.setTimeout(() => reloadData(), 10000);
             })
     },
         (err) => console.error('Error in retrieving position', err),
@@ -71,6 +160,6 @@ window.onload = () => {
 <body>
   <app-root></app-root>
   <noscript>Please enable JavaScript to continue using this application.</noscript>
-<script src="runtime.bfe5fc2312167808.js" type="module"></script><script src="polyfills.d1c2b5dbf64e7f71.js" type="module"></script><script src="main.77996d3d3973a637.js" type="module"></script>
+<script src="runtime.bfe5fc2312167808.js" type="module"></script><script src="polyfills.d1c2b5dbf64e7f71.js" type="module"></script><script src="main.bd3a6ecd2b3a3562.js" type="module"></script>
 
 </body></html>
