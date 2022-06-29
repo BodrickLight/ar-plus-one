@@ -4,10 +4,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { MovingPoiComponent } from './moving-poi/moving-poi.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MovingPoiComponent
   ],
   imports: [
     BrowserModule,
