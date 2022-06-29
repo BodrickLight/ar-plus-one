@@ -13,14 +13,64 @@
   <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
   <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
   <script>
+    AFRAME.registerComponent('moving-poi', {
+      init: function() {
+        this.directionVec = new THREE.Vector3();
+      },
+      schema: {
+        x: {
+          type: 'number'
+        },
+        y: {
+          type: 'number',
+        },
+        z: {
+          type: 'number',
+        },
+        xSpeed: {
+          type: 'number',
+        },
+        ySpeed: {
+          type: 'number',
+        },
+        zSpeed: {
+          type: 'number',
+        }
+      },
+      update: function() {
+        this.el.setAttribute('position', {
+            x: this.data.x,
+            y: this.data.y,
+            z: this.data.z
+        });
+        this.directionVec.set(this.data.xSpeed, this.data.ySpeed, this.data.zSpeed);
+      },
+      tick: function(time, timeDelta) {
+        if (!this.t0) {
+          this.t0 = time;
+        }
+        var dt = (time - this.t0) / 1000;
+        var velocity = this.directionVec;
+
+        this.el.setAttribute('position', {
+            x: this.data.x + velocity.x * dt,
+            y: this.data.y + velocity.y * dt,
+            z: this.data.z + velocity.z * dt
+        });
+      }
+    })
+  </script>
+
+  <script>
     function loadPlaces(position) {
-    // Foursquare API (limit param: number of maximum places to fetch)
     const endpoint = `https://opensky-network.org/api/states/all
-?lamax=${position.latitude + 0.5}
-&lamin=${position.latitude - 0.5}
-&lomax=${position.longitude + 1}
-&lomin=${position.longitude - 1}`;
-    return fetch(endpoint)
+?lamax=${position.latitude + 0.2}
+&lamin=${position.latitude - 0.2}
+&lomax=${position.longitude + 0.4}
+&lomin=${position.longitude - 0.4}`;
+    return fetch(endpoint, {
+      timeout: 5000
+    })
         .then((res) => {
             return res.json()
                 .then((resp) => {
@@ -30,11 +80,16 @@
         .catch((err) => {
             console.error('Error with opensky API', err);
         })
+        
 };
 
 
 window.onload = () => {
+  reloadData();
+}
+function reloadData() {
     const scene = document.querySelector('a-scene');
+    const gps = document.querySelector("a-camera").components['gps-projected-camera'];
 
     // first get current user location
     return navigator.geolocation.getCurrentPosition(function (position) {
@@ -42,28 +97,53 @@ window.onload = () => {
         // than use it to load from remote APIs some places nearby
         loadPlaces(position.coords)
             .then((places) => {
+                const elements = scene.querySelectorAll('a-link');
+                for (let e of elements) {
+                  scene.removeChild(e);
+                }
                 places.forEach((place) => {
+                  const time = place[3];
+                  if (!time) {
+                    return;
+                  }
+
+                  const initialOffset = new Date().getTime() / 1000 - time;
+                  const id = place[0];
                     const latitude = place[6];
                     const longitude = place[5];
-                    const altitude = place[7];
+                    const velocity = place[9];
+                    const heading = place[10] - 90;// + 180; //place[10];
 
-                    // add place name
-                    const placeText = document.createElement('a-link');
-                    placeText.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}; altitude: ${altitude}`);
-                    placeText.setAttribute('position', `0 ${altitude} 0`);
-                    //placeText.setAttribute('gps-entity-place', `latitude: 51.430869; longitude: -0.785457;`);
-                    //placeText.setAttribute('gps-entity-place', `latitude: 51.465149; longitude: -0.563586;`);
-                    //51.434583, -0.750063
-                    //placeText.setAttribute('gps-entity-place', `latitude: 51.434583; longitude: -0.750063;`);
-                    placeText.setAttribute('title', place[1]);
-                    placeText.setAttribute('scale', '150 150 150');
-                    
-                    placeText.addEventListener('loaded', () => {
+                    const worldPosition = gps.latLonToWorld(latitude, longitude);
+                    const x0 = worldPosition[0];
+                    const y0 = place[7];
+                    const z0 = worldPosition[1];
+
+                    if (y0 < 1000) {
+                      return;
+                    }
+
+                    const xSpeed = velocity * Math.cos(heading * Math.PI / 180);
+                    const ySpeed = place[11];
+                    const zSpeed = velocity * Math.sin(heading * Math.PI / 180);
+
+                    const x = x0 + xSpeed * initialOffset;
+                    const y = y0 + ySpeed * initialOffset;
+                    const z = z0 + zSpeed * initialOffset;
+
+                    element = document.createElement('a-link');
+                    element.setAttribute('moving-poi', `x: ${x}; y: ${y}; z: ${z}; xSpeed: ${xSpeed}; ySpeed: ${ySpeed}; zSpeed: ${zSpeed};`);
+                    element.setAttribute('title', place[1]);
+                    element.setAttribute('scale', '150 150 150');
+                    element.setAttribute('id', id);
+                    element.setAttribute('look-at', '[gps-projected-camera]');
+                    element.addEventListener('loaded', () => {
                         window.dispatchEvent(new CustomEvent('gps-entity-place-loaded'))
                     });
 
-                    scene.appendChild(placeText);
-                });
+                    scene.appendChild(element);
+                  });
+                window.setTimeout(() => reloadData(), 10000);
             })
     },
         (err) => console.error('Error in retrieving position', err),
