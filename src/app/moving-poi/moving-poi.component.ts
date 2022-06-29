@@ -14,14 +14,14 @@ export class MovingPoiComponent implements OnInit {
     const worldPosition = gps.latLonToWorld(value.position.latitude, value.position.longitude);
 
     const x0 = worldPosition[0];
-    const y0 = value.position.altitude || 0;
+    const y0 = (value.position.altitude || 0) * 1.5;
     const z0 = worldPosition[1];
 
     const heading = value.heading - 90;
 
-    this.xSpeed = value.velocity * Math.cos(heading * Math.PI / 180);
-    this.ySpeed = value.verticalRate || 0;
-    this.zSpeed = value.velocity * Math.sin(heading * Math.PI / 180);
+    this.xSpeed = value.velocity * Math.cos(heading * Math.PI / 180) * 1.5;
+    this.ySpeed = (value.verticalRate || 0) * 1.5;
+    this.zSpeed = value.velocity * Math.sin(heading * Math.PI / 180) * 1.5;
 
     this.x = x0 + this.xSpeed * dt;
     this.y = y0 + this.ySpeed * dt;

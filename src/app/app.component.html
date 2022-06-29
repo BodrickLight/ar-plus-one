@@ -4,6 +4,10 @@
   </a-text>
   <a-text value="B" scale="5 5 5" look-at="[gps-projected-camera]" gps-projected-entity-place="latitude: 51.430735; longitude: -0.785752">
   </a-text>
+  <a-text value="C" scale="5 5 5" look-at="[gps-projected-camera]" gps-projected-entity-place="latitude: 51.431523; longitude: -0.790231">
+  </a-text>
+  <a-text value="D" scale="5 5 5" look-at="[gps-projected-camera]" gps-projected-entity-place="latitude: 51.431546; longitude: -0.788780">
+  </a-text>
   <a-camera camera="far: 1000000" rotation-reader gps-projected-camera="simulateLatitude:51.430778;simulateLongitude:-0.785944;"> </a-camera>
   <a-entity app-moving-poi [model]="poi" *ngFor="let poi of poiSource.data | async"></a-entity>
 </a-scene>
