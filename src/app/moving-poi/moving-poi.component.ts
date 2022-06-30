@@ -1,6 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, OnChanges, Output, Renderer2 } from '@angular/core';
 import { PoiData } from '../models/poi-data';
-import { PoiSourceService } from '../poi-source.service';
+import { SelectedPoiService } from '../selected-poi.service';
 
 @Component({
   selector: '[app-moving-poi]',
@@ -8,7 +8,6 @@ import { PoiSourceService } from '../poi-source.service';
   styleUrls: ['./moving-poi.component.scss']
 })
 export class MovingPoiComponent implements OnChanges {
-  @Output() select = new EventEmitter<void>();
   @Input() selected: boolean = false;
   @Input() set model(value: PoiData)
   { 
@@ -29,8 +28,10 @@ export class MovingPoiComponent implements OnChanges {
     this.x = x0 + this.xSpeed * dt;
     this.y = y0 + this.ySpeed * dt;
     this.z = z0 + this.zSpeed * dt;
+    this.poi = value;
   }
 
+  private poi?: PoiData;
   private x: number = 0;
   private y: number = 0;
   private z: number = 0;
@@ -38,7 +39,7 @@ export class MovingPoiComponent implements OnChanges {
   private ySpeed: number = 0;
   private zSpeed: number = 0;
 
-  constructor(private element: ElementRef, private renderer: Renderer2, private pois: PoiSourceService) { }
+  constructor(private element: ElementRef, private renderer: Renderer2, private selectedPoi: SelectedPoiService) { }
 
   ngOnChanges(): void {
     this.renderer.setAttribute(this.element.nativeElement, "moving-poi",
@@ -48,7 +49,7 @@ export class MovingPoiComponent implements OnChanges {
   }
 
   onClick(): void {
-    this.select.emit();
+    this.selectedPoi.select(this.poi!);
     console.log(`${this.x}, ${this.y}, ${this.z}; ${this.xSpeed}, ${this.ySpeed}, ${this.zSpeed}`)
   }
 }

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { PoiData } from '../models/poi-data';
 import { PoiSourceService } from '../poi-source.service';
+import { SelectedPoiService } from '../selected-poi.service';
 
 @Component({
   selector: '[app-poi-list]',
@@ -9,14 +10,11 @@ import { PoiSourceService } from '../poi-source.service';
 })
 export class PoiListComponent implements OnInit {
   public pois?: PoiData[];
-  public selectedPoiId?: string | null
-  constructor(public poiSource: PoiSourceService) { }
+  public selectedPoi?: PoiData
+  constructor(private poiSource: PoiSourceService, private selectedPoiService: SelectedPoiService) { }
 
   ngOnInit(): void {
-    this.poiSource.data.subscribe(pois => this.pois = pois)
-  }
-
-  onSelect(poi: PoiData) {
-    this.selectedPoiId = poi.id;
+    this.poiSource.data.subscribe(pois => this.pois = pois);
+    this.selectedPoiService.data.subscribe(poi => this.selectedPoi = poi);
   }
 }

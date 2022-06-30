@@ -1,1 +1,1 @@
-<a-entity app-moving-poi [model]="poi" [selected]="poi.id === selectedPoiId" *ngFor="let poi of pois" (select)="onSelect(poi)"></a-entity>
+<a-entity app-moving-poi [model]="poi" [selected]="!!selectedPoi && poi.id === selectedPoi.id" *ngFor="let poi of pois"></a-entity>

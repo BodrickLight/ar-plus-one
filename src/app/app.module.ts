@@ -7,13 +7,17 @@ import { environment } from '../environments/environment';
 import { MovingPoiComponent } from './moving-poi/moving-poi.component';
 import { CursorComponent } from './cursor/cursor.component';
 import { PoiListComponent } from './poi-list/poi-list.component';
+import { PoiDetailsComponent } from './poi-details/poi-details.component';
+import { KmsPipe } from './kms.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     MovingPoiComponent,
     CursorComponent,
-    PoiListComponent
+    PoiListComponent,
+    PoiDetailsComponent,
+    KmsPipe
   ],
   imports: [
     BrowserModule,
