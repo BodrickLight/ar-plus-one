@@ -16,38 +16,14 @@
     gps-projected-entity-place="latitude: 51.430735; longitude: -0.785752"
   >
   </a-text>
-  <a-text
-    value="C"
-    scale="5 5 5"
-    look-at="[gps-projected-camera]"
-    gps-projected-entity-place="latitude: 51.431523; longitude: -0.790231"
-  >
-  </a-text>
-  <a-text
-    value="D"
-    scale="5 5 5"
-    look-at="[gps-projected-camera]"
-    gps-projected-entity-place="latitude: 51.431546; longitude: -0.788780"
-  >
-  </a-text>
   <a-camera
     camera="far: 1000000"
     rotation-reader
     gps-projected-camera="simulateLatitude:51.430778;simulateLongitude:-0.785944;"
   >
-    <a-entity
-      cursor="fuse: true; fuseTimeout: 500"
-      raycaster="objects: .clickable; far: 10000000"
-      position="0 0 -1"
-      geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
-      material="color: black; shader: flat"
-      animation__click="property: scale; startEvents: click; easing: easeInCubic; dur: 150; from: 0.1 0.1 0.1; to: 1 1 1"
-      animation__fusing="property: scale; startEvents: fusing; easing: easeInCubic; dur: 1500; from: 1 1 1; to: 0.1 0.1 0.1"
-      animation__mouseleave="property: scale; startEvents: mouseleave; easing: easeInCubic; dur: 500; to: 1 1 1"
-    ></a-entity>
+    <a-entity app-cursor></a-entity>
   </a-camera>
   <a-entity
-    look-at="[gps-projected-camera]"
     app-moving-poi
     [model]="poi"
     *ngFor="let poi of poiSource.data | async"
