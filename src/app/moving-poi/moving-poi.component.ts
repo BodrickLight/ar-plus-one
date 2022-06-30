@@ -43,4 +43,8 @@ export class MovingPoiComponent implements OnInit {
     this.renderer.setAttribute(this.element.nativeElement, "moving-poi",
     `x:${this.x};y:${this.y};z:${this.z};xSpeed:${this.xSpeed};ySpeed:${this.ySpeed};zSpeed:${this.zSpeed}`);
   }
+
+  onClick(): void {
+    console.log("hello, world!");
+  }
 }
