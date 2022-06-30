@@ -4,4 +4,8 @@
     <div>Altitude: {{poi.position.altitude | number }}m </div>
     <div>Vertical Rate: {{poi.verticalRate}}m/s</div>
     <div>Heading: {{poi.heading}}°</div>
+    <div *ngIf="route">
+        <div>From: {{route.from}}</div>
+        <div>To: {{route.to}}</div>
+    </div>
 </div>  

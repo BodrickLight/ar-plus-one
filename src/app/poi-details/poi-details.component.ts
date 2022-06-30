@@ -1,4 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { AirlineRouteService } from '../airline-route.service';
+import { AirlineRoute } from '../models/airline-route';
 import { PoiData } from '../models/poi-data';
 
 @Component({
@@ -6,11 +8,16 @@ import { PoiData } from '../models/poi-data';
   templateUrl: './poi-details.component.html',
   styleUrls: ['./poi-details.component.scss']
 })
-export class PoiDetailsComponent implements OnInit {
+export class PoiDetailsComponent implements OnChanges {
   @Input() poi?: PoiData
+  public route?: AirlineRoute;
 
-  constructor() { }
+  constructor(private airlineRoutes: AirlineRouteService) { }
 
-  ngOnInit(): void {
+  ngOnChanges(changes: SimpleChanges): void {
+    this.route = undefined;
+    if(this.poi) {
+      this.airlineRoutes.getRouteAsync(this.poi.name).then(route => this.route = route);
+    }
   }
 }

@@ -35,9 +35,9 @@ export class MovingPoiComponent implements OnChanges {
   private x: number = 0;
   private y: number = 0;
   private z: number = 0;
-  private xSpeed: number = 0;
-  private ySpeed: number = 0;
-  private zSpeed: number = 0;
+  public xSpeed: number = 0;
+  public ySpeed: number = 0;
+  public zSpeed: number = 0;
 
   constructor(private element: ElementRef, private renderer: Renderer2, private selectedPoi: SelectedPoiService) { }
 
@@ -50,6 +50,5 @@ export class MovingPoiComponent implements OnChanges {
 
   onClick(): void {
     this.selectedPoi.select(this.poi!);
-    console.log(`${this.x}, ${this.y}, ${this.z}; ${this.xSpeed}, ${this.ySpeed}, ${this.zSpeed}`)
   }
 }
