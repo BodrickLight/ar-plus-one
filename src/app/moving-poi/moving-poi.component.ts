@@ -26,6 +26,7 @@ export class MovingPoiComponent implements OnInit {
     this.x = x0 + this.xSpeed * dt;
     this.y = y0 + this.ySpeed * dt;
     this.z = z0 + this.zSpeed * dt;
+    this.name = value.name;
   }
 
   x: number = 0;
@@ -34,6 +35,7 @@ export class MovingPoiComponent implements OnInit {
   xSpeed: number = 0;
   ySpeed: number = 0;
   zSpeed: number = 0;
+  name: string = "";
 
   constructor(private element: ElementRef, private renderer: Renderer2) { }
 
