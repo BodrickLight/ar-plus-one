@@ -18,10 +18,10 @@ export class PoiSourceService {
     try {
       const position = await this.location.getLocationAsync();
       const endpoint = `https://opensky-network.org/api/states/all
-?lamax=${position.latitude + 0.2}
-&lamin=${position.latitude - 0.2}
-&lomax=${position.longitude + 0.4}
-&lomin=${position.longitude - 0.4}`;
+?lamax=${position.latitude + 1}
+&lamin=${position.latitude - 1}
+&lomax=${position.longitude + 1}
+&lomin=${position.longitude - 1}`;
 
       const response = await this.fetchWithTimeout(endpoint, {
         timeout: 5000,
