@@ -23,9 +23,5 @@
   >
     <a-entity app-cursor></a-entity>
   </a-camera>
-  <a-entity
-    app-moving-poi
-    [model]="poi"
-    *ngFor="let poi of poiSource.data | async"
-  ></a-entity>
+  <a-entity app-poi-list></a-entity>
 </a-scene>

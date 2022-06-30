@@ -1,12 +1,15 @@
-import { Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnChanges, Output, Renderer2 } from '@angular/core';
 import { PoiData } from '../models/poi-data';
+import { PoiSourceService } from '../poi-source.service';
 
 @Component({
   selector: '[app-moving-poi]',
   templateUrl: './moving-poi.component.html',
   styleUrls: ['./moving-poi.component.scss']
 })
-export class MovingPoiComponent implements OnInit {
+export class MovingPoiComponent implements OnChanges {
+  @Output() select = new EventEmitter<void>();
+  @Input() selected: boolean = false;
   @Input() set model(value: PoiData)
   { 
     const dt = new Date().getTime() / 1000 - value.time;
@@ -26,25 +29,26 @@ export class MovingPoiComponent implements OnInit {
     this.x = x0 + this.xSpeed * dt;
     this.y = y0 + this.ySpeed * dt;
     this.z = z0 + this.zSpeed * dt;
-    this.name = value.name;
   }
 
-  x: number = 0;
-  y: number = 0;
-  z: number = 0;
-  xSpeed: number = 0;
-  ySpeed: number = 0;
-  zSpeed: number = 0;
-  name: string = "";
+  private x: number = 0;
+  private y: number = 0;
+  private z: number = 0;
+  private xSpeed: number = 0;
+  private ySpeed: number = 0;
+  private zSpeed: number = 0;
 
-  constructor(private element: ElementRef, private renderer: Renderer2) { }
+  constructor(private element: ElementRef, private renderer: Renderer2, private pois: PoiSourceService) { }
 
-  ngOnInit(): void {
+  ngOnChanges(): void {
     this.renderer.setAttribute(this.element.nativeElement, "moving-poi",
     `x:${this.x};y:${this.y};z:${this.z};xSpeed:${this.xSpeed};ySpeed:${this.ySpeed};zSpeed:${this.zSpeed}`);
+    this.renderer.setAttribute(this.element.nativeElement.children[0].children[1], "material",
+    `shader: flat; color: ${this.selected ? 'red' : '#333'}`);
   }
 
   onClick(): void {
-    console.log("hello, world!");
+    this.select.emit();
+    console.log(`${this.x}, ${this.y}, ${this.z}; ${this.xSpeed}, ${this.ySpeed}, ${this.zSpeed}`)
   }
 }

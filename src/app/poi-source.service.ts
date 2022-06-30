@@ -28,7 +28,7 @@ export class PoiSourceService {
       });
       const json = await response.json();
       const data = json.states
-        .filter((state: any[]) => state[3] && state[7] < 1000)
+        .filter((state: any[]) => state[3] && state[7] > 1000)
         .map(
           (state: any[]) =>
             <PoiData>{

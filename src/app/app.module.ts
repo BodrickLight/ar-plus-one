@@ -6,12 +6,14 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { MovingPoiComponent } from './moving-poi/moving-poi.component';
 import { CursorComponent } from './cursor/cursor.component';
+import { PoiListComponent } from './poi-list/poi-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MovingPoiComponent,
-    CursorComponent
+    CursorComponent,
+    PoiListComponent
   ],
   imports: [
     BrowserModule,
