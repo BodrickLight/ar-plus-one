@@ -9,6 +9,7 @@ import { CursorComponent } from './cursor/cursor.component';
 import { PoiListComponent } from './poi-list/poi-list.component';
 import { PoiDetailsComponent } from './poi-details/poi-details.component';
 import { KmsPipe } from './kms.pipe';
+import { TrailPointComponent } from './trail-point/trail-point.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { KmsPipe } from './kms.pipe';
     CursorComponent,
     PoiListComponent,
     PoiDetailsComponent,
-    KmsPipe
+    KmsPipe,
+    TrailPointComponent
   ],
   imports: [
     BrowserModule,

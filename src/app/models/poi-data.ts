@@ -8,4 +8,6 @@ export interface PoiData {
   name: string;
   verticalRate: number | null;
   time: number;
+  origin?: string;
+  destination?: string;
 }

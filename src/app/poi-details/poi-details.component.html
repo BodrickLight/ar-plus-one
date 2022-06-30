@@ -1,11 +1,12 @@
-<div class="parent" *ngIf="poi">
-    <div>Registration: {{poi.name}}</div>
-    <div>Velocity: {{poi.velocity | kms}}km/h</div>
-    <div>Altitude: {{poi.position.altitude | number }}m </div>
-    <div>Vertical Rate: {{poi.verticalRate}}m/s</div>
-    <div>Heading: {{poi.heading}}°</div>
-    <div *ngIf="route">
-        <div>From: {{route.from}}</div>
-        <div>To: {{route.to}}</div>
+<div class="parent" *ngIf="poi" style="background:url({{poiDetails?.image}})">
+    <div>
+        <div>Registration: {{poi.name}}</div>
+        <div>Velocity: {{poi.velocity | kms}}km/h</div>
+        <div>Altitude: {{poi.position.altitude | number }}m </div>
+        <div>Vertical Rate: {{poi.verticalRate | number}}m/s</div>
+        <div>Heading: {{poi.heading}}°</div>
+        <div>Origin: {{poiDetails?.origin}}</div>
+        <div>Destination: {{poiDetails?.destination}}</div>
     </div>
 </div>  
+
