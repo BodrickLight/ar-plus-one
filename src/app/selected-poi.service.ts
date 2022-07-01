@@ -6,12 +6,12 @@ import { PoiData } from './models/poi-data';
   providedIn: 'root'
 })
 export class SelectedPoiService {
-  private subject = new Subject<PoiData>();
+  private subject = new Subject<PoiData | null>();
   public data = this.subject.asObservable();
 
   constructor() { }
 
-  select(poi: PoiData) {
+  select(poi: PoiData | null) {
     this.subject.next(poi);
   }
 }

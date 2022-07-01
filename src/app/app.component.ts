@@ -11,15 +11,15 @@ import { SelectedPoiService } from './selected-poi.service';
 })
 export class AppComponent implements OnInit{
   title = 'ar-plus-one';
-  public selectedPoi?: PoiData;
-  public selectedPoiDetails?: PoiDetails;
+  public selectedPoi: PoiData | null = null;
+  public selectedPoiDetails: PoiDetails | null = null;
   constructor(public poiSource: PoiSourceService, private selectedPoiService: SelectedPoiService) {
 
   }
   ngOnInit(): void {
     this.selectedPoiService.data.subscribe(async poi => {
       this.selectedPoi = poi;
-      this.selectedPoiDetails = await this.poiSource.getPoiDetailsAsync(poi.id);
+      this.selectedPoiDetails = poi ? await this.poiSource.getPoiDetailsAsync(poi.id) : null;
     });
   }
 }

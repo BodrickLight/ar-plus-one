@@ -3,9 +3,20 @@
     bottom:0;
     left: 10vh;
     right: 10vh;
-    height: 20vh;
+    height: 40vh;
     background: white;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position:center;
     border-radius: 10px 10px 0 0;
     padding: 20px;
     box-sizing: border-box;
+}
+
+#close {
+    position:absolute;
+    top:10px;
+    right:10px;
+    color:#000;
+    font-size: 20px;
 }

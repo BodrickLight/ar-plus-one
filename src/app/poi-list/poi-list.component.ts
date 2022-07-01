@@ -10,7 +10,7 @@ import { SelectedPoiService } from '../selected-poi.service';
 })
 export class PoiListComponent implements OnInit {
   public pois?: PoiData[];
-  public selectedPoi?: PoiData
+  public selectedPoi: PoiData | null = null;
   constructor(private poiSource: PoiSourceService, private selectedPoiService: SelectedPoiService) { }
 
   ngOnInit(): void {

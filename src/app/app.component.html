@@ -25,5 +25,6 @@
   </a-camera>
   <a-entity app-poi-list></a-entity>
   <a-entity app-trail-point [model]="point" *ngFor="let point of selectedPoiDetails?.trail"></a-entity>
+  <a-entity app-trail-point *ngIf="selectedPoiDetails" [model]="selectedPoi?.position"></a-entity>
 </a-scene>
 <app-poi-details [poi]="selectedPoi" [poiDetails]="selectedPoiDetails"></app-poi-details>
