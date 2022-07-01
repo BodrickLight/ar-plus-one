@@ -25,14 +25,15 @@ export class PoiSourceService {
       });
       const json = <DetailsResponse> await response.json();
       return {
-        origin: json.airport.origin?.name,
-        destination: json.airport.destination?.name,
-        image: json.aircraft.images.large[0].src,
+        origin: json.airport.origin ? { code: json.airport.origin.code.iata, name: json.airport.origin.name } : undefined,
+        destination: json.airport.destination ? { code: json.airport.destination.code.iata, name: json.airport.destination.name } : undefined,
+        image: json.aircraft.images?.large[0]?.src,
         trail: json.trail.map(t => { return {
           longitude: t.lng,
           latitude: t.lat,
           altitude: t.alt / 3.281
-        } })
+        } }),
+        description: `${json.airline.name} Flight ${json.identification.number.default}`
       };
   }
 

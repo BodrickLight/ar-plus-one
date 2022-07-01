@@ -1,16 +1,16 @@
 .parent {
-    position: fixed;
+    position: absolute;
     bottom:0;
-    left: 10vh;
-    right: 10vh;
-    height: 40vh;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width:330px;
+    height: 290px;
     background: white;
     background-size: contain;
     background-repeat: no-repeat;
-    background-position:center;
+    background-position:top;
     border-radius: 10px 10px 0 0;
-    padding: 20px;
-    box-sizing: border-box;
 }
 
 #close {
@@ -19,4 +19,43 @@
     right:10px;
     color:#000;
     font-size: 20px;
+}
+
+.flight-description {
+    position:absolute;
+    font-size:12px;
+    bottom:75px;
+    left:0;
+    right:0;
+    text-align: center;
+}
+.route {
+    position:absolute;
+    bottom:0;
+    display:flex;
+    text-align: center;
+    height:10vh;
+    width:100%;
+    align-items: center;
+    .to {
+        border: solid black;
+        border-width: 0 3px 3px 0;
+        display: inline-block;
+        padding: 3px;
+        transform: rotate(-45deg);
+        -webkit-transform: rotate(-45deg);
+        height:3px;
+        width:3px;
+        margin:10px;
+    }
+    .origin, .destination {
+        flex:1;
+        height:100%;
+    }
+    .code {
+        font-size: 30px;
+    }
+    .description {
+        font-size: 12px;
+    }
 }
